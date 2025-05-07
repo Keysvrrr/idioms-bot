@@ -26,7 +26,7 @@ def home():
     return 'Бот паботает'
 
 def run_web():
-    port = int((os.environ.get("PORT", 5000))
+    port = int((os.environ.get("PORT", 5000)))
     app_web.run(host='0.0.0.0', port=port)
 
 def get_menu_keyboard():
