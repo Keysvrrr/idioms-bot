@@ -12,9 +12,22 @@ import string
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes, CallbackQueryHandler
 
+from threading import Thread
+from flask import Flask
+
 
 user_languages = {}
 
+# Flask веб-приложение для Render 
+app_web = Flask(__name__)
+
+@app_web.route('/')
+def home():
+    return 'Бот паботает'
+
+def run_web():
+    port = int((os.environ.get("PORT", 5000))
+    app_web.run(host='0.0.0.0', port=port)
 
 def get_menu_keyboard():
     keyboard = [
@@ -149,7 +162,7 @@ def main():
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("developers", developers_command))
-    app.add_handler(CallbackQueryHandler(button_handler))  # Обработчик для кнопок
+    app.add_handler(CallbackQueryHandler(button_handler))  
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 # Вывод на терминал сообщение о запуске бота
